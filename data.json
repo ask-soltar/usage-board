@@ -1,11 +1,11 @@
 {
-  "updatedAt": 1791915300000,
+  "updatedAt": 1791918055619,
   "providers": [
     {
       "id": "chatgpt",
       "name": "ChatGPT",
       "plan": "Not read yet",
-      "note": "Waiting for the first reading from the PC script.",
+      "note": "Last attempt failed (could not find the numbers on the page). Showing the previous reading.",
       "meters": [
         {
           "id": "cg5",
@@ -29,30 +29,30 @@
       "id": "gemini",
       "name": "Gemini",
       "plan": "Plus plan",
-      "checkedAt": 1791915300000,
+      "checkedAt": 1791918055619,
       "meters": [
         {
-          "id": "ge5",
-          "label": "Current usage",
-          "hours": 5,
-          "used": 0,
-          "resetAt": 1791921900000
+          "id": "ge0",
+          "label": "Daily",
+          "hours": 24,
+          "used": 65,
+          "resetAt": 1791922200000
         },
         {
-          "id": "gew",
+          "id": "ge1",
           "label": "Weekly",
           "hours": 168,
           "used": 2,
-          "resetAt": 1792339500000
+          "resetAt": 1792519800000
         }
-      ]
+      ],
+      "note": "This reading was extracted by GLM because the usual reader did not match."
     },
     {
       "id": "glm",
       "name": "GLM",
       "plan": "Coding Lite plan",
-      "checkedAt": 1791915300000,
-      "note": "Z.ai does not show when the 5-hour window resets, so that time is an estimate.",
+      "checkedAt": 1791918055619,
       "meters": [
         {
           "id": "gl5",
@@ -68,7 +68,8 @@
           "used": 1,
           "resetAt": 1792432260000
         }
-      ]
+      ],
+      "note": "Z.ai does not show when the 5-hour window resets, so that time is an estimate."
     }
   ]
 }
