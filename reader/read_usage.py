@@ -111,6 +111,21 @@ READERS = {"claude": parse_claude, "gemini": parse_gemini, "glm": parse_glm}
 
 # ---------- GLM fallback ----------
 
+def dump(pid, url, text):
+    """Save what the page showed and print the usage-looking lines, so a parser can be fixed."""
+    (ROOT / "reader" / ("last_%s.txt" % pid)).write_text("URL: %s\n\n%s" % (url, text), encoding="utf-8")
+    lines = text.splitlines()
+    keep = set()
+    for i, l in enumerate(lines):
+        if re.search(r"%|reset|usage|limit|remaining|week|hour|daily|used", l, re.I):
+            keep.update(range(max(0, i - 1), min(len(lines), i + 2)))
+    out = [lines[i].strip() for i in sorted(keep) if lines[i].strip()][:40]
+    print("--- what %s showed (copy this to Claude) ---" % pid)
+    print(url)
+    print("\n".join(out))
+    print("---")
+
+
 def glm_key():
     key = os.environ.get("GLM_API_KEY")
     if key or os.name != "nt":
@@ -218,6 +233,7 @@ def cmd_run(push):
                 if reader:
                     meters = reader(text, now, prov["meters"]) if pid == "glm" else reader(text, now)
                 if not meters:
+                    dump(pid, final_url, text)
                     meters = ask_glm(pid, text, now)
                     how = "read by GLM"
                 else:
