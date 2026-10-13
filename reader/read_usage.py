@@ -176,8 +176,14 @@ def cmd_login():
         ctx = launch(p, headless=False)
         for name, (url, _) in PAGES.items():
             ctx.new_page().goto(url)
-        input("Sign in to each tab (Claude, ChatGPT, Gemini, Z.ai), then press Enter here to save the session... ")
-        ctx.close()
+        input("Sign in to each tab (ChatGPT, Gemini, Z.ai), then press Enter here to save the session... ")
+        # Closing can hang if a tab is stuck, so give it 15 seconds and then exit anyway.
+        import threading
+        threading.Timer(15, lambda: os._exit(0)).start()
+        try:
+            ctx.close()
+        except Exception:
+            pass
 
 
 def cmd_run(push):

@@ -1,6 +1,7 @@
 # One-time setup for the usage board reader (Windows).
 # From this folder, in PowerShell:
 #   powershell -ExecutionPolicy Bypass -File .\setup.ps1
+param([switch]$SkipLogin)
 $ErrorActionPreference = "Stop"
 Set-Location $PSScriptRoot
 
@@ -58,10 +59,14 @@ if ($existing) {
 }
 
 Step "5/6 Sign in once"
-Write-Host "A Chrome window opens with three tabs: ChatGPT, Gemini and Z.ai."
-Write-Host "Sign in to each one yourself, then come back here and press Enter."
-& $py @pyArgs reader\read_usage.py login
-if ($LASTEXITCODE -ne 0) { throw "Sign-in step failed" }
+if ($SkipLogin) {
+    Write-Host "Skipping sign-in (already done)."
+} else {
+    Write-Host "A Chrome window opens with three tabs: ChatGPT, Gemini and Z.ai."
+    Write-Host "Sign in to each one yourself, then come back here and press Enter."
+    & $py @pyArgs reader\read_usage.py login
+    if ($LASTEXITCODE -ne 0) { throw "Sign-in step failed" }
+}
 
 Step "6/6 First reading, then schedule"
 & $py @pyArgs reader\read_usage.py run
