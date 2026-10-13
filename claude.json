@@ -1,0 +1,27 @@
+{
+  "updatedAt": 1791917746000,
+  "providers": [
+    {
+      "id": "claude",
+      "name": "Claude",
+      "plan": "Pro plan",
+      "checkedAt": 1791917746000,
+      "meters": [
+        {
+          "id": "cl5",
+          "label": "Session",
+          "hours": 5,
+          "used": 19,
+          "resetAt": 1791927000000
+        },
+        {
+          "id": "clw",
+          "label": "Weekly",
+          "hours": 168,
+          "used": 56,
+          "resetAt": 1792317600000
+        }
+      ]
+    }
+  ]
+}

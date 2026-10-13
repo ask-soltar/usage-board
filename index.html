@@ -144,9 +144,16 @@ h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; margin: 0; }
       : "";
   }
 
-  fetch("data.json?v=" + Date.now(), { cache: "no-store" })
-    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(function (d) { render(d); setInterval(function () { render(d); }, 60000); })
+  function load(name) {
+    return fetch(name + "?v=" + Date.now(), { cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
+  }
+  // data.json is written by the PC script; claude.json is refreshed separately (claude.ai blocks automated sign-in).
+  Promise.all([load("data.json"), load("claude.json").catch(function () { return { providers: [] }; })])
+    .then(function (both) {
+      var d = { providers: both[1].providers.concat(both[0].providers), updatedAt: Math.max(both[0].updatedAt || 0, both[1].updatedAt || 0) };
+      render(d); setInterval(function () { render(d); }, 60000);
+    })
     .catch(function () { document.getElementById("hl").textContent = "Could not load data.json"; });
 })();
 </script>

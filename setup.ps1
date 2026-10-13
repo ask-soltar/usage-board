@@ -53,12 +53,12 @@ if ($existing) {
         $env:GLM_API_KEY = $plain
         Write-Host "Saved to your Windows user environment only."
     } else {
-        Write-Host "Skipped. Claude, Gemini and GLM will still work; ChatGPT will not."
+        Write-Host "Skipped. Gemini and GLM will still work; ChatGPT will not."
     }
 }
 
 Step "5/6 Sign in once"
-Write-Host "A Chrome window opens with four tabs: Claude, ChatGPT, Gemini and Z.ai."
+Write-Host "A Chrome window opens with three tabs: ChatGPT, Gemini and Z.ai."
 Write-Host "Sign in to each one yourself, then come back here and press Enter."
 & $py @pyArgs reader\read_usage.py login
 if ($LASTEXITCODE -ne 0) { throw "Sign-in step failed" }

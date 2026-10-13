@@ -22,7 +22,7 @@ PROFILE = Path(os.environ.get("USAGE_PROFILE", Path.home() / ".usage-board-profi
 HEADLESS = os.environ.get("HEADLESS", "1") == "1"
 
 PAGES = {
-    "claude": ("https://claude.ai/settings/usage", "Current session"),
+    # claude.ai blocks automated browsers, so Claude is refreshed separately into claude.json.
     "chatgpt": ("https://chatgpt.com/codex/settings/usage", "%"),
     "gemini": ("https://gemini.google.com/usage", "Weekly limit"),
     "glm": ("https://z.ai/manage-apikey/coding-plan/personal/usage", "Weekly Quota"),
@@ -182,6 +182,8 @@ def cmd_login():
 
 def cmd_run(push):
     from playwright.sync_api import sync_playwright
+    if push:
+        subprocess.run(["git", "pull", "--rebase", "--autostash"], cwd=ROOT, check=False)
     now = datetime.now()
     data = json.loads(DATA.read_text())
     by_id = {p["id"]: p for p in data["providers"]}

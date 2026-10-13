@@ -15,7 +15,9 @@ Open PowerShell and paste:
 git clone https://github.com/ask-soltar/usage-board $HOME\usage-board; powershell -ExecutionPolicy Bypass -File $HOME\usage-board\setup.ps1
 ```
 
-`setup.ps1` checks Python and Chrome, installs the packages, optionally saves your Z.ai key, opens Chrome so you can sign in to the four sites, does a first reading and push, and schedules a refresh every 2 hours. The manual steps below are the same thing done by hand.
+`setup.ps1` checks Python and Chrome, installs the packages, optionally saves your Z.ai key, opens Chrome so you can sign in to ChatGPT, Gemini and Z.ai, does a first reading and push, and schedules a refresh every 2 hours. The manual steps below are the same thing done by hand.
+
+**Claude is handled separately.** claude.ai blocks automated browsers (its login hangs and pauses in the debugger), so the PC script does not read it. Claude's numbers live in `claude.json`, refreshed through a normal Chrome session instead. The page merges `claude.json` and `data.json`.
 
 ## One-time setup (manual)
 
