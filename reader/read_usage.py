@@ -111,10 +111,22 @@ READERS = {"claude": parse_claude, "gemini": parse_gemini, "glm": parse_glm}
 
 # ---------- GLM fallback ----------
 
-def ask_glm(provider, text, now):
+def glm_key():
     key = os.environ.get("GLM_API_KEY")
-    if not key:
+    if key or os.name != "nt":
+        return key
+    try:  # a window opened before the key was saved will not have it, so read it from Windows directly
+        import winreg
+        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, "Environment") as k:
+            return winreg.QueryValueEx(k, "GLM_API_KEY")[0]
+    except OSError:
         return None
+
+
+def ask_glm(provider, text, now):
+    key = glm_key()
+    if not key:
+        raise RuntimeError("no GLM_API_KEY found; set it with setup.ps1 and open a NEW PowerShell window")
     import requests
     prompt = (
         "Below is the text of the %s usage-limits page. Current local time is %s (%s).\n"
@@ -211,7 +223,8 @@ def cmd_run(push):
                 else:
                     how = None
                 if not meters:
-                    raise RuntimeError("could not find the numbers on the page")
+                    (ROOT / "reader" / ("last_%s.txt" % pid)).write_text("URL: %s\n\n%s" % (final_url, text), encoding="utf-8")
+                    raise RuntimeError("could not find the numbers on the page (what it saw is in reader\\last_%s.txt)" % pid)
                 prov["meters"] = meters
                 prov["checkedAt"] = ms(now)
                 prov.pop("note", None)
