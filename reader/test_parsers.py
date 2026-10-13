@@ -52,6 +52,26 @@ Resets Sunday 3:00 AM
 53% used"""
 
 
+GEMINI_US = """Plus
+Usage limits
+PLUS
+Your plan's limits determine how much you can use Gemini over time.
+Current usage
+65% used
+Resets at 1:10 PM
+Weekly limit
+Resets Oct 20 at 11:10 AM
+2% used
+Get 2x more usage with AI Pro"""
+
+CHATGPT = """Piano Keys Explained
+2% usage remaining
+5h
+2% remaining
+Resets at 12:17 PM
+Add credits"""
+
+
 def show(ms):
     return datetime.fromtimestamp(ms / 1000).strftime("%a %Y-%m-%d %H:%M")
 
@@ -69,4 +89,10 @@ assert [m["used"] for m in g] == [0, 2] and show(g[0]["resetAt"]).endswith("13:0
 z = r.parse_glm(GLM, now)
 assert [m["used"] for m in z] == [1, 1] and show(z[1]["resetAt"]).endswith("2026-10-19 10:51")
 assert r.parse_gemini("nothing here", now) is None
+gu = r.parse_gemini(GEMINI_US, now)
+assert [m["used"] for m in gu] == [65, 2], gu
+assert show(gu[0]["resetAt"]).endswith("13:10") and show(gu[1]["resetAt"]) .startswith("Tue 2026-10-20 11:10"), [show(m["resetAt"]) for m in gu]
+cg = r.parse_chatgpt(CHATGPT, datetime(2026, 10, 13, 12, 6))
+assert len(cg) == 1 and cg[0]["used"] == 98 and show(cg[0]["resetAt"]).endswith("12:17"), cg
+assert r.parse_chatgpt("nothing", now) is None
 print("all parser checks passed")

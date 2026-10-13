@@ -23,7 +23,7 @@ HEADLESS = os.environ.get("HEADLESS", "1") == "1"
 
 PAGES = {
     # claude.ai blocks automated browsers, so Claude is refreshed separately into claude.json.
-    "chatgpt": ("https://chatgpt.com/codex/settings/usage", "%"),
+    "chatgpt": ("https://chatgpt.com/", "Resets at"),
     "gemini": ("https://gemini.google.com/usage", "Weekly limit"),
     "glm": ("https://z.ai/manage-apikey/coding-plan/personal/usage", "Weekly Quota"),
 }
@@ -75,18 +75,53 @@ def parse_claude(text, now):
     ]
 
 
+def clock(t):
+    """'13:05' or '1:05 PM' -> (hour, minute)."""
+    m = re.match(r"(\d{1,2}):(\d{2})\s*([AP]M)?", t.strip(), re.I)
+    h, mi = int(m.group(1)), int(m.group(2))
+    if m.group(3):
+        ap = m.group(3).upper()
+        if ap == "PM" and h != 12:
+            h += 12
+        if ap == "AM" and h == 12:
+            h = 0
+    return h, mi
+
+
+def month_day(txt, now):
+    """'18 Oct' or 'Oct 20' -> a date this year (next year if it is long past)."""
+    m = re.match(r"(\d{1,2})\s+([A-Za-z]{3})", txt.strip())
+    if m:
+        day, mon = m.group(1), m.group(2)
+    else:
+        m = re.match(r"([A-Za-z]{3})\s+(\d{1,2})", txt.strip())
+        mon, day = m.group(1), m.group(2)
+    d = datetime.strptime("%s %s %d" % (day, mon.title(), now.year), "%d %b %Y")
+    return d.replace(year=now.year + 1) if d < now - timedelta(days=1) else d
+
+
 def parse_gemini(text, now):
-    c = re.search(r"Current usage\s*(\d{1,3})%\s*used\s*Resets at\s*(\d{1,2}):(\d{2})", text, re.I | re.S)
-    w = re.search(r"Weekly limit\s*Resets on\s*(\d{1,2})\s+([A-Za-z]{3})\w*\s+at\s+(\d{1,2}):(\d{2})\s*(\d{1,3})%\s*used", text, re.I | re.S)
+    c = re.search(r"Current usage\s*(\d{1,3})%\s*used\s*Resets at\s*(\d{1,2}:\d{2}(?:\s*[AP]M)?)", text, re.I | re.S)
+    w = re.search(r"Weekly limit\s*Resets(?:\s+on)?\s+(\d{1,2}\s+[A-Za-z]{3}|[A-Za-z]{3}\s+\d{1,2})\w*\s+at\s+(\d{1,2}:\d{2}(?:\s*[AP]M)?)\s*(\d{1,3})%\s*used", text, re.I | re.S)
     if not (c and w):
         return None
-    wd = datetime.strptime("%s %s %d %s:%s" % (w.group(1), w.group(2).title(), now.year, w.group(3), w.group(4)), "%d %b %Y %H:%M")
-    if wd < now - timedelta(days=1):
-        wd = wd.replace(year=now.year + 1)
+    ch, cm = clock(c.group(2))
+    wh, wm = clock(w.group(2))
+    wd = month_day(w.group(1), now).replace(hour=wh, minute=wm)
     return [
-        {"id": "ge5", "label": "Current usage", "hours": 5, "used": int(c.group(1)), "resetAt": ms(next_clock(int(c.group(2)), int(c.group(3)), now))},
-        {"id": "gew", "label": "Weekly", "hours": 168, "used": int(w.group(5)), "resetAt": ms(wd)},
+        {"id": "ge5", "label": "Current usage", "hours": 5, "used": int(c.group(1)), "resetAt": ms(next_clock(ch, cm, now))},
+        {"id": "gew", "label": "Weekly", "hours": 168, "used": int(w.group(3)), "resetAt": ms(wd)},
     ]
+
+
+def parse_chatgpt(text, now):
+    # The home page shows e.g. "5h / 2% remaining / Resets at 12:17 PM"; only a 5-hour limit has been seen so far.
+    m = re.search(r"(\d{1,2})\s*h\s*(\d{1,3})%\s*remaining\s*Resets at\s*(\d{1,2}:\d{2}(?:\s*[AP]M)?)", text, re.I | re.S)
+    if not m:
+        return None
+    h, mi = clock(m.group(3))
+    return [{"id": "cg5", "label": "%d-hour limit" % int(m.group(1)), "hours": int(m.group(1)),
+             "used": 100 - int(m.group(2)), "resetAt": ms(next_clock(h, mi, now))}]
 
 
 def parse_glm(text, now, previous=None):
@@ -106,7 +141,12 @@ def parse_glm(text, now, previous=None):
     ]
 
 
-READERS = {"claude": parse_claude, "gemini": parse_gemini, "glm": parse_glm}
+NOTES = {
+    "glm": "Z.ai does not show when the 5-hour window resets, so that time is an estimate.",
+    "chatgpt": "Read from the ChatGPT home page, which has only shown the 5-hour limit so far.",
+}
+
+READERS = {"claude": parse_claude, "chatgpt": parse_chatgpt, "gemini": parse_gemini, "glm": parse_glm}
 
 
 # ---------- GLM fallback ----------
@@ -246,8 +286,8 @@ def cmd_run(push):
                 prov.pop("note", None)
                 if how:
                     prov["note"] = "This reading was extracted by GLM because the usual reader did not match."
-                if pid == "glm":
-                    prov["note"] = "Z.ai does not show when the 5-hour window resets, so that time is an estimate."
+                if pid in NOTES:
+                    prov["note"] = NOTES[pid]
                 if prov.get("plan") == "Not read yet":
                     prov["plan"] = {"chatgpt": "ChatGPT plan"}.get(pid, prov["plan"])
                 print("ok     ", pid, [(m["label"], m["used"]) for m in meters])
