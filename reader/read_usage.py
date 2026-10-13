@@ -220,19 +220,25 @@ def cmd_run(push):
         ctx.close()
     data["updatedAt"] = ms(now)
     DATA.write_text(json.dumps(data, indent=2) + "\n")
+    ok_count = sum(1 for p in data["providers"] if p.get("checkedAt") == ms(now))
     if push:
         run = lambda *a: subprocess.run(a, cwd=ROOT, check=True)
         run("git", "add", "data.json")
         if subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=ROOT).returncode != 0:
             run("git", "commit", "-m", "Usage readings " + now.strftime("%Y-%m-%d %H:%M"))
             run("git", "push")
+    return ok_count
 
 
 if __name__ == "__main__":
     args = sys.argv[1:]
+    if sys.stdout is None or sys.stderr is None:  # scheduled run with no console
+        log = open(ROOT / "reader" / "last_run.log", "a", encoding="utf-8", buffering=1)
+        sys.stdout = sys.stderr = log
+        print("---", datetime.now().isoformat(timespec="seconds"))
     if args[:1] == ["login"]:
         cmd_login()
     elif args[:1] == ["run"]:
-        cmd_run(push="--no-push" not in args)
+        sys.exit(0 if cmd_run(push="--no-push" not in args) else 1)
     else:
         print(__doc__)

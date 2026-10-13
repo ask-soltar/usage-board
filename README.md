@@ -7,7 +7,17 @@ your PC (every few hours)           GitHub                     the live site
 reader/read_usage.py  ── push ──▶  data.json  ── Pages ──▶  index.html reads it
 ```
 
-## One-time setup
+## Quick start (Windows)
+
+Open PowerShell and paste:
+
+```
+git clone https://github.com/ask-soltar/usage-board $HOME\usage-board; powershell -ExecutionPolicy Bypass -File $HOME\usage-board\setup.ps1
+```
+
+`setup.ps1` checks Python and Chrome, installs the packages, optionally saves your Z.ai key, opens Chrome so you can sign in to the four sites, does a first reading and push, and schedules a refresh every 2 hours. The manual steps below are the same thing done by hand.
+
+## One-time setup (manual)
 
 1. **Make the repo.** On GitHub create a new **public** repo (GitHub Pages is free only for public repos), e.g. `usage-board`. Upload everything in this folder, or clone it empty and copy the files in.
 2. **Turn on Pages.** Repo → Settings → Pages → Source: "Deploy from a branch", branch `main`, folder `/ (root)`. Your site will be at `https://<your-username>.github.io/usage-board/`.
