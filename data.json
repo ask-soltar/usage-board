@@ -1,35 +1,27 @@
 {
-  "updatedAt": 1791918055619,
+  "updatedAt": 1791918438307,
   "providers": [
     {
       "id": "chatgpt",
       "name": "ChatGPT",
-      "plan": "Not read yet",
-      "note": "Last attempt failed (could not find the numbers on the page). Showing the previous reading.",
+      "plan": "ChatGPT plan",
       "meters": [
         {
-          "id": "cg5",
+          "id": "ch0",
           "label": "Session",
           "hours": 5,
-          "used": 0,
-          "resetAt": 1791933300000,
-          "unread": true
-        },
-        {
-          "id": "cgw",
-          "label": "Weekly",
-          "hours": 168,
-          "used": 0,
-          "resetAt": 1792317600000,
-          "unread": true
+          "used": 98,
+          "resetAt": 1791919020000
         }
-      ]
+      ],
+      "checkedAt": 1791918302990,
+      "note": "Last attempt failed (could not find the numbers on the page (what it saw is in reader\\last_chatgpt.txt)). Showing the previous reading."
     },
     {
       "id": "gemini",
       "name": "Gemini",
       "plan": "Plus plan",
-      "checkedAt": 1791918055619,
+      "checkedAt": 1791918438307,
       "meters": [
         {
           "id": "ge0",
@@ -52,7 +44,7 @@
       "id": "glm",
       "name": "GLM",
       "plan": "Coding Lite plan",
-      "checkedAt": 1791918055619,
+      "checkedAt": 1791918438307,
       "meters": [
         {
           "id": "gl5",
