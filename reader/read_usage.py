@@ -13,6 +13,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -261,7 +262,16 @@ def cmd_run(push):
     data = json.loads(DATA.read_text())
     by_id = {p["id"]: p for p in data["providers"]}
     with sync_playwright() as p:
-        ctx = launch(p, headless=HEADLESS)
+        ctx = None
+        for attempt in range(3):
+            try:
+                ctx = launch(p, headless=HEADLESS)
+                break
+            except Exception:
+                print("Chrome would not start (another automated Chrome may be using the saved login). Retrying in 30s...", file=sys.stderr)
+                time.sleep(30)
+        if ctx is None:
+            raise RuntimeError("Chrome would not start; close any Chrome window or process using the usage-board profile")
         for pid, (url, ready) in PAGES.items():
             prov = by_id[pid]
             try:
