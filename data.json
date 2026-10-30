@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1793315238208,
+  "updatedAt": 1793322438420,
   "providers": [
     {
       "id": "chatgpt",
@@ -28,18 +28,18 @@
       "id": "gemini",
       "name": "Gemini",
       "plan": "Plus plan",
-      "checkedAt": 1793315238208,
+      "checkedAt": 1793322438420,
       "meters": [
         {
           "id": "ge0",
-          "label": "Current usage",
-          "hours": 24,
+          "label": "Session",
+          "hours": 5,
           "used": 0,
           "resetAt": 1793326200000
         },
         {
           "id": "ge1",
-          "label": "Weekly limit",
+          "label": "Weekly",
           "hours": 168,
           "used": 13,
           "resetAt": 1793729400000
@@ -51,14 +51,14 @@
       "id": "glm",
       "name": "GLM",
       "plan": "Coding Lite plan",
-      "checkedAt": 1793315238208,
+      "checkedAt": 1793322438420,
       "meters": [
         {
           "id": "gl5",
           "label": "5-hour quota",
           "hours": 5,
           "used": 1,
-          "resetAt": 1793318840062
+          "resetAt": 1793340438420
         },
         {
           "id": "glw",
