@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1793588838811,
+  "updatedAt": 1793596038369,
   "providers": [
     {
       "id": "chatgpt",
@@ -28,12 +28,12 @@
       "id": "gemini",
       "name": "Gemini",
       "plan": "Plus plan",
-      "checkedAt": 1793588838811,
+      "checkedAt": 1793596038369,
       "meters": [
         {
           "id": "ge0",
           "label": "Current usage",
-          "hours": 24,
+          "hours": 5,
           "used": 0,
           "resetAt": 1793596200000
         },
@@ -51,7 +51,7 @@
       "id": "glm",
       "name": "GLM",
       "plan": "Coding Lite plan",
-      "checkedAt": 1793588838811,
+      "checkedAt": 1793596038369,
       "meters": [
         {
           "id": "gl5",
