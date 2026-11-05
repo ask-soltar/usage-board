@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1793912841273,
+  "updatedAt": 1793920038722,
   "providers": [
     {
       "id": "chatgpt",
@@ -22,13 +22,13 @@
         }
       ],
       "checkedAt": 1793207240044,
-      "note": "Last attempt failed ('NoneType' object has no attribute 'group'). Showing the previous reading."
+      "note": "Last attempt failed (could not find the numbers on the page (what it saw is in reader\\last_chatgpt.txt)). Showing the previous reading."
     },
     {
       "id": "gemini",
       "name": "Gemini",
       "plan": "Plus plan",
-      "checkedAt": 1793912841273,
+      "checkedAt": 1793920038722,
       "meters": [
         {
           "id": "ge0",
@@ -51,7 +51,7 @@
       "id": "glm",
       "name": "GLM",
       "plan": "Coding Lite plan",
-      "checkedAt": 1793912841273,
+      "checkedAt": 1793920038722,
       "meters": [
         {
           "id": "gl5",
