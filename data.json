@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1793970438575,
+  "updatedAt": 1793977638551,
   "providers": [
     {
       "id": "chatgpt",
@@ -22,24 +22,24 @@
         }
       ],
       "checkedAt": 1793207240044,
-      "note": "Last attempt failed (Extra data: line 2 column 1 (char 84)). Showing the previous reading."
+      "note": "Last attempt failed (could not find the numbers on the page (what it saw is in reader\\last_chatgpt.txt)). Showing the previous reading."
     },
     {
       "id": "gemini",
       "name": "Gemini",
       "plan": "Plus plan",
-      "checkedAt": 1793970438575,
+      "checkedAt": 1793977638551,
       "meters": [
         {
           "id": "ge0",
-          "label": "Current usage",
-          "hours": 24,
+          "label": "Session",
+          "hours": 5,
           "used": 0,
-          "resetAt": 1793974200000
+          "resetAt": 1793992200000
         },
         {
           "id": "ge1",
-          "label": "Weekly limit",
+          "label": "Weekly",
           "hours": 168,
           "used": 11,
           "resetAt": 1794334200000
@@ -51,14 +51,14 @@
       "id": "glm",
       "name": "GLM",
       "plan": "Coding Lite plan",
-      "checkedAt": 1793970438575,
+      "checkedAt": 1793977638551,
       "meters": [
         {
           "id": "gl5",
           "label": "5-hour quota",
           "hours": 5,
           "used": 1,
-          "resetAt": 1793974040391
+          "resetAt": 1793995638551
         },
         {
           "id": "glw",
