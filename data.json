@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1794128839973,
+  "updatedAt": 1794136037949,
   "providers": [
     {
       "id": "chatgpt",
@@ -28,7 +28,7 @@
       "id": "gemini",
       "name": "Gemini",
       "plan": "Plus plan",
-      "checkedAt": 1794128839973,
+      "checkedAt": 1794136037949,
       "meters": [
         {
           "id": "ge0",
@@ -68,7 +68,7 @@
           "resetAt": 1794246660000
         }
       ],
-      "note": "Z.ai does not show when the 5-hour window resets, so that time is an estimate."
+      "note": "Last attempt failed (could not find the numbers on the page (what it saw is in reader\\last_glm.txt)). Showing the previous reading."
     }
   ]
 }
