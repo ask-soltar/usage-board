@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1794215239637,
+  "updatedAt": 1794222438040,
   "providers": [
     {
       "id": "chatgpt",
@@ -28,7 +28,7 @@
       "id": "gemini",
       "name": "Gemini",
       "plan": "Plus plan",
-      "checkedAt": 1794215239637,
+      "checkedAt": 1794222438040,
       "meters": [
         {
           "id": "ge0",
