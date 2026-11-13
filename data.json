@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1794553638899,
+  "updatedAt": 1794560839774,
   "providers": [
     {
       "id": "chatgpt",
@@ -8,20 +8,20 @@
       "meters": [
         {
           "id": "ch0",
-          "label": "Session",
+          "label": "...",
           "hours": 5,
-          "used": 10,
-          "resetAt": 1794445620000
+          "used": 42,
+          "resetAt": 1794578820000
         }
       ],
-      "checkedAt": 1794438438589,
-      "note": "Last attempt failed (could not find the numbers on the page (what it saw is in reader\\last_chatgpt.txt)). Showing the previous reading."
+      "checkedAt": 1794560839774,
+      "note": "Read from the ChatGPT home page, which has only shown the 5-hour limit so far."
     },
     {
       "id": "gemini",
       "name": "Gemini",
       "plan": "Plus plan",
-      "checkedAt": 1794553638899,
+      "checkedAt": 1794560839774,
       "meters": [
         {
           "id": "ge0",
