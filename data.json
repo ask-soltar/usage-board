@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1794632837508,
+  "updatedAt": 1794640037826,
   "providers": [
     {
       "id": "chatgpt",
@@ -15,7 +15,7 @@
         }
       ],
       "checkedAt": 1794560839774,
-      "note": "Last attempt failed (could not find the numbers on the page (what it saw is in reader\\last_chatgpt.txt)). Showing the previous reading."
+      "note": "Last attempt failed (429 Client Error: Too Many Requests for url: https://api.z.ai/api/coding/paas/v4/chat/completions). Showing the previous reading."
     },
     {
       "id": "gemini",
@@ -38,7 +38,7 @@
           "resetAt": 1794939000000
         }
       ],
-      "note": "This reading was extracted by GLM because the usual reader did not match."
+      "note": "Last attempt failed (429 Client Error: Too Many Requests for url: https://api.z.ai/api/coding/paas/v4/chat/completions). Showing the previous reading."
     },
     {
       "id": "glm",
@@ -61,7 +61,7 @@
           "resetAt": 1794246660000
         }
       ],
-      "note": "Last attempt failed (could not find the numbers on the page (what it saw is in reader\\last_glm.txt)). Showing the previous reading."
+      "note": "Last attempt failed (429 Client Error: Too Many Requests for url: https://api.z.ai/api/coding/paas/v4/chat/completions). Showing the previous reading."
     }
   ]
 }
