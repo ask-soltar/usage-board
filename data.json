@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1795698438078,
+  "updatedAt": 1795705638026,
   "providers": [
     {
       "id": "chatgpt",
@@ -21,18 +21,18 @@
       "id": "gemini",
       "name": "Gemini",
       "plan": "Plus plan",
-      "checkedAt": 1795698438078,
+      "checkedAt": 1795705638026,
       "meters": [
         {
           "id": "ge0",
           "label": "Session",
           "hours": 5,
-          "used": 0,
-          "resetAt": 1795702200000
+          "used": 1,
+          "resetAt": 1795720200000
         },
         {
           "id": "ge1",
-          "label": "Weekly limit",
+          "label": "Weekly",
           "hours": 168,
           "used": 0,
           "resetAt": 1796148600000
@@ -44,24 +44,24 @@
       "id": "glm",
       "name": "GLM",
       "plan": "Coding Lite plan",
-      "checkedAt": 1794128839973,
+      "checkedAt": 1795705638026,
       "meters": [
         {
           "id": "gl5",
           "label": "5-hour quota",
           "hours": 5,
           "used": 1,
-          "resetAt": 1794146839973
+          "resetAt": 1795723638026
         },
         {
           "id": "glw",
           "label": "Weekly quota",
           "hours": 168,
-          "used": 7,
-          "resetAt": 1794246660000
+          "used": 90,
+          "resetAt": 1796061060000
         }
       ],
-      "note": "Last attempt failed (could not find the numbers on the page (what it saw is in reader\\last_glm.txt)). Showing the previous reading."
+      "note": "Z.ai does not show when the 5-hour window resets, so that time is an estimate."
     }
   ]
 }
