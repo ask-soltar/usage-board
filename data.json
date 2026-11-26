@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1795720038075,
+  "updatedAt": 1795727240128,
   "providers": [
     {
       "id": "chatgpt",
@@ -15,7 +15,7 @@
         }
       ],
       "checkedAt": 1794560839774,
-      "note": "Last attempt failed (could not find the numbers on the page (what it saw is in reader\\last_chatgpt.txt)). Showing the previous reading."
+      "note": "Last attempt failed (429 Client Error: Too Many Requests for url: https://api.z.ai/api/coding/paas/v4/chat/completions). Showing the previous reading."
     },
     {
       "id": "gemini",
@@ -38,26 +38,26 @@
           "resetAt": 1796148600000
         }
       ],
-      "note": "This reading was extracted by GLM because the usual reader did not match."
+      "note": "Last attempt failed (429 Client Error: Too Many Requests for url: https://api.z.ai/api/coding/paas/v4/chat/completions). Showing the previous reading."
     },
     {
       "id": "glm",
       "name": "GLM",
       "plan": "Coding Lite plan",
-      "checkedAt": 1795720038075,
+      "checkedAt": 1795727240128,
       "meters": [
         {
           "id": "gl5",
           "label": "5-hour quota",
           "hours": 5,
-          "used": 34,
-          "resetAt": 1795723638026
+          "used": 100,
+          "resetAt": 1795745240128
         },
         {
           "id": "glw",
           "label": "Weekly quota",
           "hours": 168,
-          "used": 6,
+          "used": 20,
           "resetAt": 1796323380000
         }
       ],
