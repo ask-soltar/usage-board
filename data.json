@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1795712839756,
+  "updatedAt": 1795720038075,
   "providers": [
     {
       "id": "chatgpt",
@@ -21,7 +21,7 @@
       "id": "gemini",
       "name": "Gemini",
       "plan": "Plus plan",
-      "checkedAt": 1795712839756,
+      "checkedAt": 1795720038075,
       "meters": [
         {
           "id": "ge0",
@@ -44,21 +44,21 @@
       "id": "glm",
       "name": "GLM",
       "plan": "Coding Lite plan",
-      "checkedAt": 1795712839756,
+      "checkedAt": 1795720038075,
       "meters": [
         {
           "id": "gl5",
           "label": "5-hour quota",
           "hours": 5,
-          "used": 1,
+          "used": 34,
           "resetAt": 1795723638026
         },
         {
           "id": "glw",
           "label": "Weekly quota",
           "hours": 168,
-          "used": 90,
-          "resetAt": 1796061060000
+          "used": 6,
+          "resetAt": 1796323380000
         }
       ],
       "note": "Z.ai does not show when the 5-hour window resets, so that time is an estimate."
